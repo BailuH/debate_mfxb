@@ -1,0 +1,6 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "agents": "./src/workflow.py:app"
+  }
+}
