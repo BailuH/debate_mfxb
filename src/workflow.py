@@ -1,4 +1,5 @@
 from langgraph.graph import StateGraph, START, END
+from langgraph.checkpoint.memory import MemorySaver
 from src.state import *
 from src.agent import *
 
@@ -32,8 +33,6 @@ graph.add_conditional_edges("judge_should_continue",judge.judge_should_continue,
                             })
 graph.add_edge("judge_verdict", END)
 
-app = graph.compile()
-
-#可视化图（在脚本里输出png文件，因此不使用IPYTHON）
-#with open("graph.png", "wb") as f:
-    #f.write(app.get_graph().draw_mermaid_png())
+# 使用内存检查点进行状态持久化
+memory = MemorySaver()
+app = graph.compile(checkpointer=memory)
